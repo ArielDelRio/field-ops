@@ -1,56 +1,198 @@
-# Welcome to your Expo app 👋
+# FieldOps Mobile - Plan de entrenamiento RN (modo mentor)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este repo se usara como tablero unico de trabajo.
+Tu implementas cada tarea y yo te acompano con revision, feedback, debugging y mejoras.
 
-## Get started
+## Como trabajaremos
 
-1. Install dependencies
+1. Tomas la siguiente tarea marcada como pendiente.
+2. La implementas en cambios pequenos.
+3. Me pasas lo que hiciste (codigo, errores o dudas).
+4. Yo reviso contra criterios de aceptacion y te digo ajustes concretos.
+5. Marcamos la tarea como completada y avanzamos.
 
-   ```bash
-   npm install
-   ```
+## Reglas del proyecto
 
-2. Start the app
+- Expo + React Native + TypeScript estrictamente.
+- Expo Router para navegacion.
+- Arquitectura por features.
+- Pantallas delgadas: logica en hooks, servicios y stores.
+- TanStack Query para estado remoto.
+- Zustand solo para estado local no remoto.
+- No meter librerias nativas que rompan Expo salvo necesidad real.
 
-   ```bash
-   npx expo start
-   ```
+## Modo produccion (training serio)
 
-In the output, you'll find options to open the app in a
+- Objetivo: acercarnos lo maximo posible a una app productiva, no solo demo de Expo Go.
+- Minimo obligatorio: correr en emulador (iOS Simulator o Android Emulator).
+- Expo Go se puede usar para iterar rapido, pero no sera el unico entorno de validacion.
+- Cuando una feature requiera capacidades nativas no disponibles en Expo Go, usar Dev Client.
+- Validar flujos clave en ambos modos cuando aplique: desarrollo rapido y entorno cercano a produccion.
+- Antes de marcar una tarea como completada, ejecutar validacion en emulador.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Fase 0 - Setup y disciplina de trabajo
 
-## Get a fresh project
+### T0.1 - Inicializacion del proyecto Expo
+- Estado: [x] Completada
+- Objetivo RN: comprender estructura base de Expo y ciclo de desarrollo.
+- Source:
+	- Expo Docs - Create a project: https://docs.expo.dev/get-started/create-a-project/
+	- Expo Docs - Set up your environment: https://docs.expo.dev/get-started/set-up-your-environment/
+	- Expo Docs - Start developing: https://docs.expo.dev/get-started/start-developing/
+	- Expo Docs - Unit testing with Jest: https://docs.expo.dev/develop/unit-testing/
+- Entregable:
+	- proyecto inicial ejecutando en Expo Go
+	- scripts de start, test y typecheck
+- Criterios de aceptacion:
+	- `npm run start` funciona
+	- app abre sin errores de TypeScript
+- Aprendido:
+	- `typecheck` valida tipos sin depender de levantar la app.
+	- `Jest` ejecuta pruebas y `React Native Testing Library` ayuda a renderizar y consultar la UI.
 
-When you're ready, run:
+### T0.2 - Configurar Expo Router + TypeScript estricto
+- Estado: [ ] Pendiente
+- Objetivo RN: dominar file-based routing y typed routes.
+- Entregable:
+	- configuracion de Expo Router
+	- `strict: true` en TypeScript
+- Criterios de aceptacion:
+	- rutas cargan por archivos
+	- typecheck limpio
 
-```bash
-npm run reset-project
-```
+### T0.3 - Estructura por features
+- Estado: [ ] Pendiente
+- Objetivo RN: arquitectura mantenible para apps medianas/grandes.
+- Entregable:
+	- carpetas separadas para `auth`, `tasks`, `scanner`, `notifications`, `shared`
+- Criterios de aceptacion:
+	- UI reusable separada de componentes por feature
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-### Other setup steps
+## Fase 1 - Sprint 1 (base funcional)
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### T1.1 - Sistema de tema + componentes base
+- Estado: [ ] Pendiente
+- Objetivo RN: consistencia visual y reutilizacion.
+- Entregable:
+	- tema (colores, spacing, tipografia)
+	- componentes `Screen`, `Button`, `Input`, `Card`
+- Criterios de aceptacion:
+	- componentes reutilizables en 2+ pantallas
 
-## Learn more
+### T1.2 - Navegacion principal (tabs + stack)
+- Estado: [ ] Pendiente
+- Objetivo RN: composicion de navegacion realista.
+- Entregable:
+	- tabs: Dashboard, Tasks, Scan, Profile
+	- stack para pantallas de detalle
+- Criterios de aceptacion:
+	- navegacion entre tabs estable
+	- detail abre desde Tasks
 
-To learn more about developing your project with Expo, look at the following resources:
+### T1.3 - Dominio de Tasks + DTOs + mappers
+- Estado: [ ] Pendiente
+- Objetivo RN: separar contrato API del modelo interno.
+- Entregable:
+	- tipos de dominio (`Task`)
+	- DTOs de API (`TaskDto`)
+	- mapper `TaskDto -> Task`
+- Criterios de aceptacion:
+	- UI nunca consume DTO crudo directamente
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### T1.4 - Lista de tareas con mock data (FlatList)
+- Estado: [ ] Pendiente
+- Objetivo RN: listas performantes y renderizado escalable.
+- Entregable:
+	- servicio mock de tareas
+	- pantalla de Tasks con `FlatList`
+- Criterios de aceptacion:
+	- scroll fluido
+	- keys estables
 
-## Join the community
+### T1.5 - Detalle de tarea
+- Estado: [ ] Pendiente
+- Objetivo RN: navegacion con parametros tipados.
+- Entregable:
+	- pantalla detalle por `taskId`
+	- enlace desde item de lista
+- Criterios de aceptacion:
+	- al tocar una tarea se ve su detalle correcto
 
-Join our community of developers creating universal apps.
+### T1.6 - Estado local y remoto (base)
+- Estado: [ ] Pendiente
+- Objetivo RN: uso correcto de Zustand vs TanStack Query.
+- Entregable:
+	- store Zustand para sesion/preferencias
+	- queries para tasks list/detail
+- Criterios de aceptacion:
+	- no usar Zustand para cache remoto
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### T1.7 - Formularios con RHF + Zod
+- Estado: [ ] Pendiente
+- Objetivo RN: validacion robusta tipada.
+- Entregable:
+	- formulario simple (por ejemplo, filtro de tareas o perfil)
+	- esquema Zod + React Hook Form
+- Criterios de aceptacion:
+	- errores de validacion visibles en UI
+
+### T1.8 - Testing base del sprint
+- Estado: [ ] Pendiente
+- Objetivo RN: asegurar calidad desde el inicio.
+- Entregable:
+	- tests con Jest + RNTL para lista y detalle
+- Criterios de aceptacion:
+	- tests verdes
+	- sin `only` ni `skip`
+
+---
+
+## Fase 2 - Capacidades senior (despues de Sprint 1)
+
+### T2.1 - Scanner QR/Barra (Expo Camera)
+- Estado: [ ] Pendiente
+- Objetivo RN: permisos, ciclo de camara, UX de escaneo.
+
+### T2.2 - Offline first (AsyncStorage o SQLite)
+- Estado: [ ] Pendiente
+- Objetivo RN: cache local, cola de cambios y resiliencia de red.
+
+### T2.3 - Motor de sincronizacion
+- Estado: [ ] Pendiente
+- Objetivo RN: reconciliacion de cambios locales/remotos y conflictos.
+
+### T2.4 - Ubicacion (Expo Location)
+- Estado: [ ] Pendiente
+- Objetivo RN: permisos en foreground/background y privacidad.
+
+### T2.5 - Notificaciones (Expo Notifications)
+- Estado: [ ] Pendiente
+- Objetivo RN: registro de token, canales y manejo de eventos.
+
+### T2.6 - E2E con Maestro
+- Estado: [ ] Pendiente
+- Objetivo RN: pruebas de flujos criticos en dispositivo.
+
+---
+
+## Definicion de terminado (DoD) por tarea
+
+- TypeScript sin errores.
+- Sin warnings criticos en consola.
+- Codigo alineado a arquitectura por features.
+- Prueba minima del comportamiento agregado.
+- Breve nota en este README de lo aprendido (1-2 lineas).
+- Validado en emulador (no solo Expo Go).
+
+---
+
+## Progreso rapido
+
+- Fase actual: Sprint 1
+- Tarea actual sugerida: T0.2
+
+Cuando completes una tarea, cambia `Estado: [ ] Pendiente` por `Estado: [x] Completada`.
