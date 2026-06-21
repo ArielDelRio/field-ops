@@ -1,12 +1,13 @@
 import { renderRouter } from "expo-router/testing-library";
 
 describe("app routes", () => {
-  test("renders the home route at /", async () => {
+  test("renders the dashboard route at /", async () => {
     const result = await renderRouter("./src/app", {
       initialUrl: "/",
     });
 
-    expect(result.getAllByText("Home").length).toBeGreaterThan(0);
+    expect(result.getAllByText("Dashboard").length).toBeGreaterThan(0);
+    expect(result.getByText("About the app")).toBeVisible();
   });
 
   test("renders the tasks route at /tasks", async () => {
@@ -24,6 +25,19 @@ describe("app routes", () => {
 
     expect(result.getByText("Task Detail")).toBeVisible();
     expect(result.getByText("Task ID: task-1")).toBeVisible();
+    expect(result.getByText("Inspect generator unit")).toBeVisible();
+    expect(result.getByText("Location: North Plant")).toBeVisible();
+    expect(result.getByText("Assigned to: Alex Morgan")).toBeVisible();
+  });
+
+  test("renders a fallback when the task detail route does not exist", async () => {
+    const result = await renderRouter("./src/app", {
+      initialUrl: "/tasks/task-999",
+    });
+
+    expect(result.getByText("Task Detail")).toBeVisible();
+    expect(result.getByText("Task ID: task-999")).toBeVisible();
+    expect(result.getByText("Task not found.")).toBeVisible();
   });
 
   test("renders the scan route at /scan", async () => {
@@ -47,6 +61,6 @@ describe("app routes", () => {
       initialUrl: "/auth/sign-in",
     });
 
-    expect(result.getByText("Sign In")).toBeVisible();
+    expect(result.getAllByText("Sign In").length).toBeGreaterThan(0);
   });
 });
